@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "137859772190",
+    "firebase_url": "https://ceebo-1556289443839.firebaseio.com",
+    "project_id": "ceebo-1556289443839",
+    "storage_bucket": "ceebo-1556289443839.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137859772190:android:16e5d5d650a5473963e30f",
+        "android_client_info": {
+          "package_name": "com.ceeboriders"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137859772190-8k4f2lmaajs381out8ig8sd0bghke2f9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXBk7NP8wL-ppFwe0UjutWODYndWGAJ-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137859772190-8k4f2lmaajs381out8ig8sd0bghke2f9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137859772190-i9o4ugdbradhostqm58nakvcrmj3bsn6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ceeborider"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
