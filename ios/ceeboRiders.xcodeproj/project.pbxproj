@@ -16,8 +16,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ceeboRidersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ceeboRidersTests.m */; };
-		3E9FE71FFD79E77B38453A20 /* libPods-ceeboRiders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 834AF6A6ABEAEDBF3F70E96F /* libPods-ceeboRiders.a */; };
-		7622727DFCDA865F73FB824E /* libPods-ceeboRidersTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 162258CE69AA8B2A49DB7085 /* libPods-ceeboRidersTests.a */; };
+		39F722C64868A3C7A52C99FD /* libPods-ceeboRiders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7D5CB79CA13AD3A4338078 /* libPods-ceeboRiders.a */; };
 		8B3E31812333596400CF57DB /* Heebo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B3E317A2333596300CF57DB /* Heebo-Black.ttf */; };
 		8B3E31822333596400CF57DB /* Heebo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B3E317B2333596300CF57DB /* Heebo-Light.ttf */; };
 		8B3E31832333596400CF57DB /* Heebo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B3E317C2333596300CF57DB /* Heebo-Regular.ttf */; };
@@ -26,6 +25,7 @@
 		8B3E31862333596400CF57DB /* Heebo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B3E317F2333596300CF57DB /* Heebo-Bold.ttf */; };
 		8B3E31872333596400CF57DB /* Heebo-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B3E31802333596400CF57DB /* Heebo-ExtraBold.ttf */; };
 		8B3E318923335CFD00CF57DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8B3E318823335CFD00CF57DB /* GoogleService-Info.plist */; };
+		D6AACBCB6BF2E14BE08959BE /* libPods-ceeboRidersTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2E758C2D166D3C16457C3 /* libPods-ceeboRidersTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +50,8 @@
 		00E356EE1AD99517003FC87E /* ceeboRidersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ceeboRidersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ceeboRidersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ceeboRidersTests.m; sourceTree = "<group>"; };
+		05C2E758C2D166D3C16457C3 /* libPods-ceeboRidersTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ceeboRidersTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B6F93BE3BA031B964B7A5A0 /* Pods-ceeboRiders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ceeboRiders.debug.xcconfig"; path = "Target Support Files/Pods-ceeboRiders/Pods-ceeboRiders.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ceeboRiders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ceeboRiders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ceeboRiders/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ceeboRiders/AppDelegate.m; sourceTree = "<group>"; };
@@ -57,11 +59,9 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ceeboRiders/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ceeboRiders/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ceeboRiders/main.m; sourceTree = "<group>"; };
-		162258CE69AA8B2A49DB7085 /* libPods-ceeboRidersTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ceeboRidersTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* ceeboRiders-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ceeboRiders-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* ceeboRiders-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ceeboRiders-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		74F80D149B40E1BCE9C16BF7 /* Pods-ceeboRidersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ceeboRidersTests.release.xcconfig"; path = "Target Support Files/Pods-ceeboRidersTests/Pods-ceeboRidersTests.release.xcconfig"; sourceTree = "<group>"; };
-		834AF6A6ABEAEDBF3F70E96F /* libPods-ceeboRiders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ceeboRiders.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D26A01BAA5EC9B35F1C280D /* Pods-ceeboRidersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ceeboRidersTests.debug.xcconfig"; path = "Target Support Files/Pods-ceeboRidersTests/Pods-ceeboRidersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8B3E317A2333596300CF57DB /* Heebo-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Heebo-Black.ttf"; path = "../../assets/fonts/Heebo-Black.ttf"; sourceTree = "<group>"; };
 		8B3E317B2333596300CF57DB /* Heebo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Heebo-Light.ttf"; path = "../../assets/fonts/Heebo-Light.ttf"; sourceTree = "<group>"; };
 		8B3E317C2333596300CF57DB /* Heebo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Heebo-Regular.ttf"; path = "../../assets/fonts/Heebo-Regular.ttf"; sourceTree = "<group>"; };
@@ -70,11 +70,11 @@
 		8B3E317F2333596300CF57DB /* Heebo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Heebo-Bold.ttf"; path = "../../assets/fonts/Heebo-Bold.ttf"; sourceTree = "<group>"; };
 		8B3E31802333596400CF57DB /* Heebo-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Heebo-ExtraBold.ttf"; path = "../../assets/fonts/Heebo-ExtraBold.ttf"; sourceTree = "<group>"; };
 		8B3E318823335CFD00CF57DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9FC46C1963A328BA0C4D0D2B /* Pods-ceeboRiders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ceeboRiders.release.xcconfig"; path = "Target Support Files/Pods-ceeboRiders/Pods-ceeboRiders.release.xcconfig"; sourceTree = "<group>"; };
-		BDD2E671CDEECD8271960DE1 /* Pods-ceeboRidersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ceeboRidersTests.debug.xcconfig"; path = "Target Support Files/Pods-ceeboRidersTests/Pods-ceeboRidersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9F328FA8F21ED1D2EE8F313A /* Pods-ceeboRidersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ceeboRidersTests.release.xcconfig"; path = "Target Support Files/Pods-ceeboRidersTests/Pods-ceeboRidersTests.release.xcconfig"; sourceTree = "<group>"; };
+		DF7D5CB79CA13AD3A4338078 /* libPods-ceeboRiders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ceeboRiders.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		FC9A4CB12913B01E485B6440 /* Pods-ceeboRiders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ceeboRiders.debug.xcconfig"; path = "Target Support Files/Pods-ceeboRiders/Pods-ceeboRiders.debug.xcconfig"; sourceTree = "<group>"; };
+		EE12FE17E0E742241D1E1217 /* Pods-ceeboRiders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ceeboRiders.release.xcconfig"; path = "Target Support Files/Pods-ceeboRiders/Pods-ceeboRiders.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7622727DFCDA865F73FB824E /* libPods-ceeboRidersTests.a in Frameworks */,
+				D6AACBCB6BF2E14BE08959BE /* libPods-ceeboRidersTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E9FE71FFD79E77B38453A20 /* libPods-ceeboRiders.a in Frameworks */,
+				39F722C64868A3C7A52C99FD /* libPods-ceeboRiders.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,8 +148,8 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				834AF6A6ABEAEDBF3F70E96F /* libPods-ceeboRiders.a */,
-				162258CE69AA8B2A49DB7085 /* libPods-ceeboRidersTests.a */,
+				DF7D5CB79CA13AD3A4338078 /* libPods-ceeboRiders.a */,
+				05C2E758C2D166D3C16457C3 /* libPods-ceeboRidersTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -213,10 +213,10 @@
 		E16303435F511E4AD12C8EA4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FC9A4CB12913B01E485B6440 /* Pods-ceeboRiders.debug.xcconfig */,
-				9FC46C1963A328BA0C4D0D2B /* Pods-ceeboRiders.release.xcconfig */,
-				BDD2E671CDEECD8271960DE1 /* Pods-ceeboRidersTests.debug.xcconfig */,
-				74F80D149B40E1BCE9C16BF7 /* Pods-ceeboRidersTests.release.xcconfig */,
+				0B6F93BE3BA031B964B7A5A0 /* Pods-ceeboRiders.debug.xcconfig */,
+				EE12FE17E0E742241D1E1217 /* Pods-ceeboRiders.release.xcconfig */,
+				6D26A01BAA5EC9B35F1C280D /* Pods-ceeboRidersTests.debug.xcconfig */,
+				9F328FA8F21ED1D2EE8F313A /* Pods-ceeboRidersTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -228,7 +228,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ceeboRidersTests" */;
 			buildPhases = (
-				99B50ADEF33AB52A8FE5CB6E /* [CP] Check Pods Manifest.lock */,
+				B78E3D50A59BFB4DFBD8F55D /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -247,13 +247,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ceeboRiders" */;
 			buildPhases = (
-				0B5846A5FD5BD469BB530338 /* [CP] Check Pods Manifest.lock */,
+				4D4B2FA93F30D129F49B52C5 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				E6C25AE47FD1207AEF0F66A6 /* [CP] Copy Pods Resources */,
+				26C6E96444165507F648743D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -404,65 +404,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		0B5846A5FD5BD469BB530338 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ceeboRiders-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		99B50ADEF33AB52A8FE5CB6E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ceeboRidersTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E6C25AE47FD1207AEF0F66A6 /* [CP] Copy Pods Resources */ = {
+		26C6E96444165507F648743D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -512,6 +454,64 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ceeboRiders/Pods-ceeboRiders-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		4D4B2FA93F30D129F49B52C5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ceeboRiders-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B78E3D50A59BFB4DFBD8F55D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ceeboRidersTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -619,7 +619,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BDD2E671CDEECD8271960DE1 /* Pods-ceeboRidersTests.debug.xcconfig */;
+			baseConfigurationReference = 6D26A01BAA5EC9B35F1C280D /* Pods-ceeboRidersTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = "";
@@ -643,7 +643,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74F80D149B40E1BCE9C16BF7 /* Pods-ceeboRidersTests.release.xcconfig */;
+			baseConfigurationReference = 9F328FA8F21ED1D2EE8F313A /* Pods-ceeboRidersTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -664,7 +664,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC9A4CB12913B01E485B6440 /* Pods-ceeboRiders.debug.xcconfig */;
+			baseConfigurationReference = 0B6F93BE3BA031B964B7A5A0 /* Pods-ceeboRiders.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -685,7 +685,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FC46C1963A328BA0C4D0D2B /* Pods-ceeboRiders.release.xcconfig */;
+			baseConfigurationReference = EE12FE17E0E742241D1E1217 /* Pods-ceeboRiders.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;

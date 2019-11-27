@@ -41,7 +41,6 @@ class SideBar extends Component {
     ]);
   }
   __goAndReset(routeName, bool) {
-    console.log(this.props.navigation)
     const resetAction = StackActions.reset({
       index: 0,
       actions: [

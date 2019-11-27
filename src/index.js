@@ -8,6 +8,7 @@ import Ordini from './containers/Ordini'
 import Settings from './containers/Settings'
 import Deposits from './containers/Deposits'
 import Splash from './containers/Splash'
+import Vehicle from './containers/Vehicle'
 
 export {
   Login,
@@ -19,5 +20,6 @@ export {
   Settings,
   Ordini,
   Deposits,
-  Splash
+  Splash,
+  Vehicle
 }

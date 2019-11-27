@@ -4,26 +4,20 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 class ItemOrder extends Component {
   render() {
-    const { date, delivery, change, total, delivery_text, change_text, total_text, deliveries, deliveries_hours } = this.props
+    const { created_title, created_text, returned_title, returned_text, total_title, total } = this.props
     return (
       <View style={styles.view}>
-        <View>
-          <Text style={styles.date}>{date}</Text>
-          <Text style={styles.deliveries}>{deliveries} <Text style={{fontSize: 11, fontWeight: 'normal'}}>{"Deliveries"}</Text></Text>
-          <Text style={styles.deliveries}>{deliveries_hours}</Text>
-        </View>
-
         <View style={styles.row}>
           <View style={styles.col}>
-            <Text style={styles.title_small}>{delivery_text}</Text>
-            <Text style={styles.title}>{delivery}</Text>
+            <Text style={styles.title_small}>{created_title}</Text>
+            <Text style={styles.title}>{created_text}</Text>
           </View>
           <View style={styles.col}>
-            <Text style={styles.title_small}>{change_text}</Text>
-            <Text style={styles.title}>{change}</Text>
+            <Text style={styles.title_small}>{returned_title}</Text>
+            <Text style={styles.title}>{returned_text}</Text>
           </View>
           <View style={[styles.col, { alignItems: 'flex-end' }]}>
-            <Text style={styles.title_small}>{total_text}</Text>
+            <Text style={[styles.title_small, { paddingBottom: 0 }]}>{total_title}</Text>
             <View style={styles.total_big}>
               <Text style={styles.total_text}>{total}</Text>
             </View>
@@ -43,18 +37,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 20
   },
-  date: {
-    color: '#707070',
-    fontSize: 12,
-    fontFamily: 'Helvetica',
-    paddingBottom: 7
-  },
-  deliveries: {
-    color: "#404040",
-    fontSize: 12,
-    fontFamily: 'Helvetica',
-    fontWeight: 'bold'
-  },
   row: {
     flex: 1,
     flexDirection: 'row',
@@ -63,17 +45,19 @@ const styles = StyleSheet.create({
   },
   col: {
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    minHeight: 50
   },
   title_small: {
-    color: '#707070',
+    color: '#7E7E7E',
     fontSize: 12,
     fontFamily: 'Helvetica',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    paddingBottom: 6
   },
   title: {
     color: '#000',
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: 'Helvetica',
     fontWeight: 'bold'
   },
@@ -84,7 +68,7 @@ const styles = StyleSheet.create({
   },
   total_text: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Helvetica',
     fontWeight: 'bold'
   }

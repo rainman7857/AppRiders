@@ -20,7 +20,8 @@ class Settings extends Component {
       phone_number: "",
       status: "Offline",
       id: 0,
-      listing: {}
+      listing: {},
+      vehicle: null
     }
   }
   componentDidMount(){
@@ -37,6 +38,9 @@ class Settings extends Component {
         this.setState({...res.data, name: res.data.first_name, surname: res.data.last_name})
       }
     }).catch((err) => this.props.navigation.navigate("ErrorMessage", { error_message: err.message }))
+  }
+  updateVehicle(item){
+    this.setState({vehicle: item})
   }
   render() {
     const { SETTINGS, SUPPORT, SAVE, NAME, EMAIL, PHONE_NUMBER, CALL_RESTAURANT, RESTORAUNT, STATUS, ONLINE, SURNAME } = this.props.language.lang
@@ -59,7 +63,7 @@ class Settings extends Component {
           <Input value={email} placeholder={EMAIL} onChangeText={(text) => this.setState({email: text})} />
           <Input value={phone_number} placeholder={PHONE_NUMBER} onChangeText={(text) => this.setState({phone_number: text.replace(/[^0-9+]/g, '')})} />
 
-          <TouchableOpacity style={styles.btn_picker} onPress={() => {}}>
+          <TouchableOpacity style={styles.btn_picker} onPress={() => this.props.navigation.navigate("Vehicle", { updateVehicle: this.updateVehicle.bind(this) })}>
             <Text style={styles.btn_picker_title}>{"Seleziona veicolo"}</Text>
             <Icon size={24} name={"chevron-right"} color={"#39C77C"} />
           </TouchableOpacity>
@@ -84,7 +88,7 @@ class Settings extends Component {
   }
   saveFunc(state){
     const { data_user } = this.props.main
-    const { name, email, phone_number, surname } = state
+    const { name, email, phone_number, surname, vehicle } = state
     axios({
       url: `${API}${'update_account'}`,
       method: 'post',
@@ -94,7 +98,7 @@ class Settings extends Component {
         "first_name": name,
         "last_name": surname,
         "phone_number": phone_number,
-        "vehicle": "car"
+        "vehicle": vehicle
       }
     }).then((res) => {
       console.log(res)

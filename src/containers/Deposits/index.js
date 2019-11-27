@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity, Keyboard, Alert } from "react-native";
 import { connect } from 'react-redux'
 import moment from 'moment'
 import _ from 'lodash'
@@ -33,7 +33,7 @@ class Deposits extends Component {
     }).catch((err) => this.props.navigation.navigate('ErrorMessage', { error_message: err.message }))
   }
   render() {
-    const { DEPOSITS, TODAY, DELIVERIES, DELIVERY, CHANGE, TOT_SMALL, OLD_DEPOSITS, HOURS } = this.props.language.lang
+    const { DEPOSITS, TODAY, DELIVERIES, DELIVERY, CHANGE, TOT_SMALL, OLD_DEPOSITS, HOURS, CREATED, RETURNED, RETURN } = this.props.language.lang
     const { data_user } = this.props.main
     const { data = {}, fetching } = this.state
     console.log(data)
@@ -48,26 +48,25 @@ class Deposits extends Component {
               <View style={styles.row}>
                 <View style={{alignItems: 'flex-end'}}>
                   <Text style={styles.delivery}>{DELIVERIES}</Text>
-                  <Text style={[styles.text, styles.text_25]}>{data.total_orders && typeof data.total_orders === 'string' ? data.total_orders : 0}</Text>
+                  <Text style={[styles.text, styles.text_25]}>{data.total_orders ? data.total_orders : 0}</Text>
                 </View>
                 <View style={{alignItems: 'center', paddingLeft: 30}}>
-                  <Text style={styles.delivery}>{HOURS}</Text>
-                  <Text style={[styles.text, styles.text_25]}>{data.total_hours && typeof data.total_hours === 'string' ? data.total_hours : 0}</Text>
+                  <Text style={styles.delivery}>{DELIVERY}</Text>
+                  <Text style={[styles.text, styles.text_25]}>{data.total_amount_orders ? data.total_amount_orders : 0}</Text>
                 </View>
                 <View style={{alignItems: 'flex-end', flex: 1}}>
-                  <Text style={styles.delivery}>{DELIVERY}</Text>
-                  <Text style={[styles.text, styles.text_25]}>{"€ "}{data.total_ammount_revenue && typeof data.total_ammount_revenue === 'string' ? data.total_ammount_revenue : 0}</Text>
+                  <Text style={styles.delivery}>{CHANGE}</Text>
+                  <Text style={[styles.text, styles.text_25]}>{data.total_amount_deposits ? data.total_amount_deposits : 0}</Text>
                 </View>
               </View>
               <View style={styles.row}>
-                <View style={styles.change}>
-                  <Text style={styles.change_title}>{CHANGE}</Text>
-                  <Text style={styles.change_text}>{data.total_ammount_change && typeof data.total_ammount_change === 'string' ? data.total_ammount_change : 0}{" €"}</Text>
-                </View>
+                <TouchableOpacity style={styles.return_btn} onPress={() => this.returnFunc()}>
+                  <Text style={styles.return_btn_title}>{RETURN}</Text>
+                </TouchableOpacity>
                 <View style={styles.total}>
                   <Text style={styles.total_title}>{TOT_SMALL}</Text>
                   <View style={styles.total_big}>
-                    <Text style={styles.total_text}>{"€ "}{data.total_ammount_daily && typeof data.total_ammount_daily === 'string' ? data.total_ammount_daily : 0}</Text>
+                    <Text style={styles.total_text}>{data.total_amount_revenue ? data.total_amount_revenue : 0}</Text>
                   </View>
                 </View>
               </View>
@@ -76,21 +75,17 @@ class Deposits extends Component {
             <View style={styles.content}>
               <Text style={[styles.text, { padding: 16 }]}>{OLD_DEPOSITS}</Text>
               <Section extraData={data} refreshFunc={() => {}}
-                sections={[{title: "", data: data.deposits}]}
+                sections={[{title: "", data: data.deposits && Array.isArray(data.deposits) ? data.deposits : [] }]}
                 itemFunc={(item, index, section) => {
-                  const time = item && item.created_at ? new Date(item.created_at) : new Date()
                   return(
                     <ItemOrder
                       key={index}
-                      date={moment(time).format('MMM DD')}
-                      delivery={`€${item && item.total_ammount_earns ? item.total_ammount_earns : 0}`}
-                      change={`${item && item.total_ammount_change ? item.total_ammount_change : 0}€`}
-                      total={`€${item && item.total_ammount_daily ? item.total_ammount_daily : 0}`}
-                      deliveries={"12"}
-                      deliveries_hours={"3,5h"}
-                      delivery_text={DELIVERY}
-                      change_text={CHANGE}
-                      total_text={TOT_SMALL}
+                      created_title={CREATED}
+                      created_text={item.created_at ? moment(item.created_at).format("DD MMMM") : ""}
+                      returned_title={RETURNED}
+                      returned_text={item.registered_at ? moment(item.registered_at).format("DD MMMM") : ""}
+                      total_title={TOT_SMALL}
+                      total={`${item && item.amount ? item.amount : 0}`}
                     />
                   )
                 }}
@@ -100,6 +95,12 @@ class Deposits extends Component {
         }
       </View>
     );
+  }
+  returnFunc(){
+    Alert.alert('Are you sure to return this deposit.', 'The data will be reset for the next turn.', [
+        {text: 'Not now', style: 'cancel'},
+        {text: 'Return', onPress: () => {}},
+    ]);
   }
 }
 
@@ -139,9 +140,6 @@ const styles = StyleSheet.create({
   text_25: {
     fontSize: 30,
   },
-  change: {
-    paddingLeft: 70
-  },
   change_title: {
     color: '#7E7E7E',
     fontSize: 12,
@@ -164,13 +162,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   total_big: {
-    borderRadius: 3,
     padding: 3,
-    backgroundColor: '#FF6969',
   },
   total_text: {
-    color: '#fff',
+    color: '#3AC87C',
     fontSize: 30,
+    fontFamily: 'Helvetica',
+    fontWeight: 'bold'
+  },
+  return_btn: {
+    width: 133,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#FF5D5D',
+  },
+  return_btn_title: {
+    color: '#fff',
+    fontSize: 15,
     fontFamily: 'Helvetica',
     fontWeight: 'bold'
   }

@@ -32,6 +32,13 @@ export default {
   RESTORAUNT: "Ristorante",
   STATUS: "Stato",
 
+  //Vehicle
+  VEHICLE: "Veicolo",
+  BIKE: "Bicicletta",
+  CAR: "Auto",
+  SCOOTER: "Scooter",
+  WALKER: "Camminatore",
+
   //SideBar
   HOME: "Home",
   ORDINI: "Ordini",
@@ -59,4 +66,7 @@ export default {
   TOT_SMALL: "Tot.",
   OLD_DEPOSITS: "Old deposits",
   HOURS: "Ore",
+  CREATED: "Creato",
+  RETURNED: "Restituito",
+  RETURN: "Ritorno"
 }

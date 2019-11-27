@@ -15,18 +15,10 @@ import rootReducer from './src/rootReducer';
 import { dataStorage } from './src/actions/Main'
 const { width } = Dimensions.get("window")
 
-import { Login, Forgot, Home, SideBar, Earnings, OrderDetails, Settings, Ordini, Deposits, Splash } from './src'
+import { Login, Forgot, Home, SideBar, Earnings, OrderDetails, Settings, Ordini, Deposits, Splash, Vehicle } from './src'
 import ErrorMessage from './src/components/ErrorMessage'
 
-const MainStack = createStackNavigator({
-  Main: Home,
-  Ordini: Ordini,
-  Deposits: Deposits,
-  Settings: Settings,
-  OrderDetails: OrderDetails,
-  Login: Login,
-  Forgot: Forgot,
-},{ defaultNavigationOptions: { gesturesEnabled: false, header: null } });
+const MainStack = createStackNavigator({ Main: Home, Ordini, Deposits, Settings, OrderDetails, Vehicle },{ defaultNavigationOptions: { gesturesEnabled: false, header: null } });
 
 const MyDrawerNavigator = createDrawerNavigator({ Home: MainStack },{
   contentComponent: (props) => (<SideBar {...props} />),
@@ -36,17 +28,11 @@ const MyDrawerNavigator = createDrawerNavigator({ Home: MainStack },{
 });
 
 const WelcomeStack = createStackNavigator({
-  Login: Login,
-  Home: MyDrawerNavigator,
-  Forgot: Forgot,
-  ErrorMessage: ErrorMessage
+  Login, Home: MyDrawerNavigator,Forgot, ErrorMessage
 },{ defaultNavigationOptions: { gesturesEnabled: false, header: null }, headerMode: 'none', mode: 'modal', transparentCard: true, cardStyle: { backgroundColor: 'rgba(0, 0, 0, 0)', opacity: 1 } });
 
 const HomeStack = createStackNavigator({
-  Home: MyDrawerNavigator,
-  Login: Login,
-  Forgot: Forgot,
-  ErrorMessage: ErrorMessage
+  Home: MyDrawerNavigator, Login, Forgot, ErrorMessage
 },{ defaultNavigationOptions: { gesturesEnabled: false, header: null }, headerMode: 'none', mode: 'modal', transparentCard: true, cardStyle: { backgroundColor: 'rgba(0, 0, 0, 0)', opacity: 1 } });
 
 const AppContainer = createAppContainer(WelcomeStack);
@@ -60,9 +46,7 @@ export default class App extends React.Component {
       data_bool: true,
       welcome: false,
     }
-    setTimeout(() => {
-      this.setState({loading: false})
-    }, 1500)
+    setTimeout(() => { this.setState({loading: false}) }, 1500)
     this._handleAppStateChange = this._handleAppStateChange.bind(this)
   }
   componentDidMount(){
