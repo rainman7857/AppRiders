@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, ImageBackground, Image, TouchableOpacity, Platform, ScrollView, Dimensions } from "react-native";
 import { connect } from 'react-redux'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Icon from "react-native-vector-icons/Feather";
 import firebase from 'react-native-firebase'
 import _ from 'lodash'
@@ -10,6 +10,7 @@ import moment from 'moment'
 import Communications from 'react-native-communications';
 import axios from 'axios'
 import Carousel from 'react-native-snap-carousel';
+import MapViewDirections from 'react-native-maps-directions';
 
 import { Wrapper, Header, Section, CustomSwiper } from '../../components'
 import Item from './Item'
@@ -37,9 +38,8 @@ class HomeOrders extends Component {
     // console.log(data)
     return (
       <ImageBackground style={styles.container} source={require('../../img/map_image.png')}>
-        {/*
         <MapView
-           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+           provider={PROVIDER_GOOGLE}
            style={{flex: 1}}
            region={{
              latitude: 37.78825,
@@ -47,8 +47,16 @@ class HomeOrders extends Component {
              latitudeDelta: 0.015,
              longitudeDelta: 0.0121,
            }}
-         />
-       */}
+         >
+           <Marker coordinate={{latitude: 37.78825, longitude: -122.4324}}>
+            <Image style={{width: 16, height: 16}} source={require('../../img/iconarider.png')} resizeMode={"contain"} />
+           </Marker>
+           <MapViewDirections
+              origin={{latitude: 37.78825, longitude: -122.4324}}
+              destination={{latitude: 37.771707, longitude: -122.4053769}}
+              apikey={"AIzaSyAaIlCSyn3yP7iEUa2CDFTHEgjDQey1Iuo"}
+            />
+         </MapView>
          <View style={styles.absolute}>
            <View style={[styles.header, _styleHeader]}>
              <TouchableOpacity style={styles.button_left} onPress={() => props.navigation.openDrawer()}>

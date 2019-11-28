@@ -99,8 +99,21 @@ class Deposits extends Component {
   returnFunc(){
     Alert.alert('Are you sure to return this deposit.', 'The data will be reset for the next turn.', [
         {text: 'Not now', style: 'cancel'},
-        {text: 'Return', onPress: () => {}},
+        {text: 'Return', onPress: () => this.depositRegister()},
     ]);
+  }
+  depositRegister(){
+    const { data_user } = this.props.main
+    axios({
+      url: `${API}${"deposit_register"}`,
+      method: 'PUT',
+      headers: { Authorization: 'Bearer ' + data_user.token }
+    }).then((res) => {
+      console.log(res)
+      if(res.data.message){
+        this.props.navigation.navigate('ErrorMessage', { error_message: typeof res.data.message === 'string' ? res.data.message : "Error" })
+      }
+    }).catch((err) => this.props.navigation.navigate('ErrorMessage', { error_message: err.message }))
   }
 }
 

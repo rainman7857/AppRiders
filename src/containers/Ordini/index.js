@@ -61,7 +61,7 @@ class Ordini extends Component {
                     time={item.pickup_deadline ? moment(item.pickup_deadline).format('hh:mm A') : null}
                     color={item.status_color ? item.status_color : "#fff"}
                     status_title={item.status ? item.status : ""}
-                    money={`${"€ "}${item.total_price}`}
+                    money={item.total_price}
                     money_text={item.payment_method}
                     onPress={() => this.props.navigation.navigate("OrderDetails", { order_id: item.id, delivered: true })}
                   />

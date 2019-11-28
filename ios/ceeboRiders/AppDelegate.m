@@ -28,7 +28,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [GMSServices provideAPIKey:@"AIzaSyDml6rqKwjgQgPomyAhC-WxVt4aLodlraU"];
+  [GMSServices provideAPIKey:@"AIzaSyAaIlCSyn3yP7iEUa2CDFTHEgjDQey1Iuo"];
   [FIRApp configure];
   return YES;
 }

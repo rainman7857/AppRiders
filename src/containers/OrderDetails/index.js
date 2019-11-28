@@ -19,7 +19,7 @@ class OrderDetails extends Component {
     super(props)
     const delivered = this.props.navigation.getParam("delivered")
     this.state = {
-      delivered: delivered ? false : false,
+      delivered: delivered ? true : false,
       data: {},
       fetching: true
     }
@@ -52,14 +52,18 @@ class OrderDetails extends Component {
             :
             <View style={styles.content}>
               {delivered ?
-                <View style={[styles.top, styles.top_row]}>
-                  <View style={styles.col}>
-                    <Text style={styles.time_title}>{"Delivery time"}</Text>
-                    <Text style={styles.time_text}>{data && data.pickup_ready ? moment(data.pickup_ready).format("kk:mm") : "00:00"}</Text>
-                  </View>
-                  <View style={styles.col}>
-                    <Text style={styles.time_title}>{"delivered"}</Text>
-                    <Text style={styles.time_text}>{data && data.pickup_deadline ? moment(data.pickup_deadline).format("kk:mm") : "00:00"}</Text>
+                <View style={[styles.top]}>
+                  <Text style={styles.top_title}>{dropoff.name}</Text>
+                  <Text style={styles.top_subtitle}>{dropoff.address}</Text>
+                  <View style={styles.top_row}>
+                    <View style={styles.col}>
+                      <Text style={styles.time_title}>{"Delivery time"}</Text>
+                      <Text style={styles.time_text}>{data && data.pickup_ready ? moment(data.pickup_ready).format("kk:mm") : "00:00"}</Text>
+                    </View>
+                    <View style={styles.col}>
+                      <Text style={styles.time_title}>{"delivered"}</Text>
+                      <Text style={styles.time_text}>{data && data.pickup_deadline ? moment(data.pickup_deadline).format("kk:mm") : "00:00"}</Text>
+                    </View>
                   </View>
                 </View>
                 :
@@ -133,11 +137,14 @@ class OrderDetails extends Component {
                 </View>
               </View>
 
-              <View style={styles.block}>
-                <View style={styles.line} />
-                <Text style={styles.menu_title}>{"Info for the rider"}</Text>
-                <Text style={[styles.menu_title, { fontSize: 14, fontWeight: 'bold' }]}>{""}</Text>
-              </View>
+              {data.notes && typeof data.notes === 'string' ?
+                <View style={styles.block}>
+                  <View style={styles.line} />
+                  <Text style={styles.menu_title}>{"Info for the rider"}</Text>
+                  <Text style={[styles.menu_title, { fontSize: 14 }]}>{data.notes}</Text>
+                </View>
+                : null
+              }
 
               {delivered ?
                 <View style={styles.footer}>
@@ -234,6 +241,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 40,
+    overflow: 'hidden'
     // backgroundColor: "#61B5DB"
   },
   text_small: {
@@ -342,7 +350,8 @@ const styles = StyleSheet.create({
   },
   top_row: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: 20
   },
   col: {
     paddingHorizontal: 35,
