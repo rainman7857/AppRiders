@@ -11,6 +11,7 @@ import Communications from 'react-native-communications';
 import axios from 'axios'
 import Carousel from 'react-native-snap-carousel';
 import MapViewDirections from 'react-native-maps-directions';
+import Geolocation from 'react-native-geolocation-service';
 
 import { Wrapper, Header, Section, CustomSwiper } from '../../components'
 import Item from './Item'
@@ -25,55 +26,92 @@ class HomeOrders extends Component {
     this.state = {
       ordini: false,
       swiper_index: 0,
+      coords: {
+        latitude: 0,
+        longitude: 0
+      }
     }
+  }
+  componentDidMount() {
+    this.myGeo()
+  }
+  myGeo(){
+    Geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position);
+        this.setState({coords: position.coords})
+      },
+      (error) => {
+        // See error code charts below.
+        console.log(error.code, error.message);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    );
   }
   render() {
     const { NEW_ORDERS, FIRST_AND_LAST_DELIVERY, ITEM, ITEMS, PRODUCTS, ORDER, PICK_UP } = this.props.language.lang
     const { top_space, bottom_space } = this.props.main;
     const _styleHeader = {height: 56 + top_space, paddingTop: top_space}
-    const { ordini, swiper_index } = this.state
+    const { ordini, swiper_index, coords } = this.state
     const { props, state } = this.props;
     const { data, new_orders } = state
     const orders = data && data.orders && Array.isArray(data.orders) ? data.orders : []
-    // console.log(data)
+    const order = _.size(orders) ? orders[swiper_index] : {}
+    const dropoff = _.size(order) ? order.dropoff : {}
+    const pickup = _.size(order) ? order.pickup : {}
+    const dropoff_loc = _.size(dropoff) ? dropoff.location : {}
+    const pickup_loc = _.size(pickup) ? pickup.location : {}
     return (
       <ImageBackground style={styles.container} source={require('../../img/map_image.png')}>
         <MapView
            provider={PROVIDER_GOOGLE}
            style={{flex: 1}}
            region={{
-             latitude: 37.78825,
-             longitude: -122.4324,
+             latitude: pickup_loc ? Number(pickup_loc.lat) : coords.latitude,
+             longitude: pickup_loc ? Number(pickup_loc.lng) : coords.longitude,
              latitudeDelta: 0.015,
-             longitudeDelta: 0.0121,
+             longitudeDelta: 0.015,
            }}
          >
-           <Marker coordinate={{latitude: 37.78825, longitude: -122.4324}}>
+           <Marker coordinate={{latitude: coords.latitude, longitude: coords.longitude}}>
             <Image style={{width: 16, height: 16}} source={require('../../img/iconarider.png')} resizeMode={"contain"} />
            </Marker>
+           <Marker coordinate={{latitude: pickup_loc ? Number(pickup_loc.lat) : 0, longitude: pickup_loc ? Number(pickup_loc.lng) : 0}}>
+            <Image style={{width: 16, height: 16}} source={require('../../img/iconarestaurant.png')} resizeMode={"contain"} />
+           </Marker>
+           <Marker coordinate={{latitude: dropoff_loc ? Number(dropoff_loc.lat) : 0, longitude: dropoff_loc ? Number(dropoff_loc.lng) : 0}}>
+            <Image style={{width: 16, height: 16}} source={require('../../img/iconaclient.png')} resizeMode={"contain"} />
+           </Marker>
            <MapViewDirections
-              origin={{latitude: 37.78825, longitude: -122.4324}}
-              destination={{latitude: 37.771707, longitude: -122.4053769}}
+              origin={{latitude: coords.latitude, longitude: coords.longitude}}
+              destination={{latitude: pickup_loc ? Number(pickup_loc.lat) : 0, longitude: pickup_loc ? Number(pickup_loc.lng) : 0}}
               apikey={"AIzaSyAaIlCSyn3yP7iEUa2CDFTHEgjDQey1Iuo"}
+              strokeWidth={3}
+              strokeColor="#ad427c"
+            />
+           <MapViewDirections
+              origin={{latitude: pickup_loc ? Number(pickup_loc.lat) : 0, longitude: pickup_loc ? Number(pickup_loc.lng) : 0}}
+              destination={{latitude: dropoff_loc ? Number(dropoff_loc.lat) : 0, longitude: dropoff_loc ? Number(dropoff_loc.lng) : 0}}
+              apikey={"AIzaSyAaIlCSyn3yP7iEUa2CDFTHEgjDQey1Iuo"}
+              strokeWidth={3}
             />
          </MapView>
+         <View style={[styles.header, _styleHeader]}>
+           <TouchableOpacity style={styles.button_left} onPress={() => props.navigation.openDrawer()}>
+            <Icon color={"#000"} name={"menu"} size={24} />
+           </TouchableOpacity>
+           <TouchableOpacity style={[styles.ordini, { borderColor: new_orders ? '#FF1414' : 'rgba(112, 112, 112, 0.3)' }]} onPress={() => {
+             this.setState({ordini: !ordini})
+             if(new_orders && ordini){
+               this.props.offNewOrders()
+             }
+           }}>
+             <Text style={styles.ordini_title}>{"ordini"}</Text>
+             <View style={[styles.ordini_line, { backgroundColor: new_orders ? 'rgba(255, 20, 20, 0.3)' : 'rgba(112, 112, 112, 0.3)' }]} />
+             <Text style={styles.ordini_title}>{_.size(orders)}</Text>
+           </TouchableOpacity>
+         </View>
          <View style={styles.absolute}>
-           <View style={[styles.header, _styleHeader]}>
-             <TouchableOpacity style={styles.button_left} onPress={() => props.navigation.openDrawer()}>
-              <Icon color={"#000"} name={"menu"} size={24} />
-             </TouchableOpacity>
-             <TouchableOpacity style={[styles.ordini, { borderColor: new_orders ? '#FF1414' : 'rgba(112, 112, 112, 0.3)' }]} onPress={() => {
-               this.setState({ordini: !ordini})
-               if(new_orders && ordini){
-                 this.props.offNewOrders()
-               }
-             }}>
-               <Text style={styles.ordini_title}>{"ordini"}</Text>
-               <View style={[styles.ordini_line, { backgroundColor: new_orders ? 'rgba(255, 20, 20, 0.3)' : 'rgba(112, 112, 112, 0.3)' }]} />
-               <Text style={styles.ordini_title}>{_.size(orders)}</Text>
-             </TouchableOpacity>
-           </View>
-
            {ordini ?
              <View style={styles.content}>
                <Wrapper scroll={true}>
@@ -118,6 +156,7 @@ class HomeOrders extends Component {
                <Carousel useScrollView={true}
                  ref={(c) => { this._carousel = c; }}
                  data={orders && Array.isArray(orders) ? orders : []}
+                 onSnapToItem={(sliderIndex) => this.setState({swiper_index: sliderIndex})}
                  renderItem={({item, index}) => {
                    const dropoff = item.dropoff ? item.dropoff : {}
                    const data_menu = item.items && Array.isArray(item.items) ? item.items : []
@@ -143,39 +182,6 @@ class HomeOrders extends Component {
                  sliderWidth={width}
                  itemWidth={width - 80}
                />
-               {/*orders && Array.isArray(orders) ?
-                 <CustomSwiper index={swiper_index} containerStyle={{height: 250, backgroundColor: 'rgba(34, 34, 34, 0)'}} showsButtons={false} showsPagination={false} loop={false}
-                    onIndexChanged={(index) => this.setState({swiper_index: index})}
-                    refSwiper={(c) => { this.swiper = c }}
-                  >
-                    {orders.map((item, i) => {
-                      const dropoff = item.dropoff ? item.dropoff : {}
-                      const data_menu = item.items && Array.isArray(item.items) ? item.items : []
-                      return(
-                        <View key={i}>
-                          <ItemOrder
-                            title={"Order #" + item.id}
-                            page={i + 1}
-                            subtitle={dropoff.name}
-                            location={dropoff.detailed_address.street_address_1 + ' ' + dropoff.detailed_address.street_address_2}
-                            text_product={_.size(data_menu) + " items"}
-                            pagato={"Pagato"}
-                            pagare={item.payment_method}
-                            paid={false}
-                            text_orario={"Delivery time"}
-                            text_time={moment(dropoff.dropoff_deadline).format("kk:mm")}
-                            title_apri={"Open"}
-                            onPressPhone={() => Communications.phonecall(dropoff.phone_number, true)}
-                            onPressApri={() => props.navigation.navigate("OrderDetails", { order_id: item.id })}
-                            onPress={() => {}}
-                          />
-                        </View>
-                      )
-                    })}
-                  </CustomSwiper>
-                  : null
-                */}
-
               <View style={{height: bottom_space ? bottom_space : 16}} />
              </View>
            }
@@ -211,9 +217,10 @@ const styles = StyleSheet.create({
   },
   absolute: {
     position: 'absolute',
-    zIndex: 1,
+    zIndex: 99,
     width: '100%',
-    height: '100%',
+    height: 300,
+    bottom: 0,
   },
   bg: {
     width: '100%',
@@ -226,7 +233,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 6,
     marginTop: 6,
-    marginBottom: 24
+    position: 'absolute',
+    zIndex: 2,
+    width: '100%'
   },
   button_left: {
     padding: 10,
