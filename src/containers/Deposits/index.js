@@ -44,7 +44,7 @@ class Deposits extends Component {
           :
           <Wrapper scroll={true}>
             <View style={styles.top}>
-              <Text style={styles.text}>{data.date ? moment(data.date).format('DD MMM') : ""}</Text>
+              <Text style={styles.text}>{data.date ? data.date : ""}</Text>
               <View style={styles.row}>
                 <View style={{alignItems: 'flex-end'}}>
                   <Text style={styles.delivery}>{DELIVERIES}</Text>
@@ -81,9 +81,9 @@ class Deposits extends Component {
                     <ItemOrder
                       key={index}
                       created_title={CREATED}
-                      created_text={item.created_at ? moment(item.created_at).format("DD MMMM") : ""}
+                      created_text={item.created_at ? item.created_at : ""}
                       returned_title={RETURNED}
-                      returned_text={item.registered_at ? moment(item.registered_at).format("DD MMMM") : ""}
+                      returned_text={item.registered_at ? item.registered_at : ""}
                       total_title={TOT_SMALL}
                       total={`${item && item.amount ? item.amount : 0}`}
                     />

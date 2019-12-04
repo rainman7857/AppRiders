@@ -6,7 +6,7 @@ import axios from 'axios'
 import moment from 'moment'
 import Icon from "react-native-vector-icons/Feather";
 import Communications from 'react-native-communications';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import _ from 'lodash'
 
 import { API } from '../../API'
@@ -17,9 +17,8 @@ import ItemMenu from './ItemMenu'
 class OrderDetails extends Component {
   constructor(props){
     super(props)
-    const delivered = this.props.navigation.getParam("delivered")
     this.state = {
-      delivered: delivered ? true : false,
+      delivered: false,
       data: {},
       fetching: true
     }
@@ -34,8 +33,9 @@ class OrderDetails extends Component {
       url: `${API}${'orders?id='}${order_id}`,
       headers: { "Authorization": "Bearer " + data_user.token }
     }).then((res) => {
-      console.log(res)
-      this.setState({data: res.data ? res.data : {}, fetching: false})
+      // console.log(res)
+      const data = res.data ? res.data : {}
+      this.setState({data: data, delivered: data.status_id === 7 ? true : false, fetching: false})
     }).catch((err) => this.props.navigation.navigate("ErrorMessage", { error_message: err.message }))
   }
   render() {
@@ -44,6 +44,7 @@ class OrderDetails extends Component {
     const { delivered, data, fetching } = this.state
     const order_id = this.props.navigation.getParam("order_id")
     const dropoff = data && data.dropoff ? data.dropoff : {}
+    const dropoff_loc = _.size(dropoff) ? dropoff.location : {}
     return (
       <View style={styles.container}>
         <Header title={ORDER + " #" + order_id} props={this.props} icon={"arrow-left"} color={"#38C67C"} hide_search={true} onPressLeft={() => this.props.navigation.goBack()}/>
@@ -72,10 +73,12 @@ class OrderDetails extends Component {
                   <Text style={styles.top_subtitle}>{dropoff.address}</Text>
                   <View style={[styles.row, { marginVertical: 16, justifyContent: 'space-between'}]}>
                     <View style={{alignItems: 'center'}}>
-                      <Text style={styles.text_small}>{"Travel time"}</Text>
-                      <Text style={styles.title_small}>{"15"}<Text style={{fontSize: 8}}>{"min"}</Text></Text>
-                      <Text style={styles.text_small}>{"Arrival time"}</Text>
-                      <Text style={styles.title_small}>{data && data.pickup_ready ? moment(data.pickup_ready).format("kk:mm") : "00:00"}</Text>
+                      {/*
+                        <Text style={styles.text_small}>{"Travel time"}</Text>
+                        <Text style={styles.title_small}>{"15"}<Text style={{fontSize: 8}}>{"min"}</Text></Text>
+                        <Text style={styles.text_small}>{"Arrival time"}</Text>
+                        <Text style={styles.title_small}>{data && data.pickup_ready ? moment(data.pickup_ready).format("kk:mm") : "00:00"}</Text>
+                        */}
                     </View>
 
                     <View style={styles.map}>
@@ -83,12 +86,16 @@ class OrderDetails extends Component {
                          provider={PROVIDER_GOOGLE}
                          style={{width: '100%', height: '100%'}}
                          region={{
-                           latitude: dropoff.location && dropoff.location.lat && typeof dropoff.location.lat === 'numeric' ? Number(dropoff.location.lat) : 37.78825,
-                           longitude: dropoff.location && dropoff.location.lng && typeof dropoff.location.lng === 'numeric' ? Number(dropoff.location.lng) : -122.4324,
+                           latitude: dropoff_loc ? Number(dropoff_loc.lat) : 0,
+                           longitude: dropoff_loc ? Number(dropoff_loc.lng) : 0,
                            latitudeDelta: 0.015,
-                           longitudeDelta: 0.0121,
+                           longitudeDelta: 0.015,
                          }}
-                       />
+                       >
+                         <Marker coordinate={{latitude: dropoff_loc ? Number(dropoff_loc.lat) : 0, longitude: dropoff_loc ? Number(dropoff_loc.lng) : 0}}>
+                          <Image style={{width: 36, height: 36}} source={require('../../img/iconaclient.png')} resizeMode={"contain"} />
+                         </Marker>
+                       </MapView>
                     </View>
                     <TouchableOpacity style={styles.btn_phone} onPress={() => Communications.phonecall(dropoff.phone_number, true)}>
                       <Image style={styles.btn_phone_icon} source={require('../../img/phone_icon.png')} />
@@ -148,7 +155,7 @@ class OrderDetails extends Component {
 
               {delivered ?
                 <View style={styles.footer}>
-                  <Text style={styles.delivered_text}>{DELIVERED}</Text>
+                  <Text style={styles.delivered_text}>{data.order_status}</Text>
                   <View style={styles.delivered_view}>
                     <Icon name={"check"} color={"#fff"} size={30} />
                   </View>
@@ -158,7 +165,7 @@ class OrderDetails extends Component {
                   <TouchableOpacity style={styles.btn_green} onPress={() => this.deliveryFunc()}>
                     <Text style={styles.btn_green_title}>{"Consegnato"}</Text>
                   </TouchableOpacity>
-                  <Text style={[styles.text, styles.text_red]}>{SUPPORT}</Text>
+                  {/*<Text style={[styles.text, styles.text_red]}>{SUPPORT}</Text>*/}
                 </View>
               }
             </View>
@@ -170,8 +177,25 @@ class OrderDetails extends Component {
   deliveryFunc(){
     Alert.alert('Are you sure ?', 'Do you want to delivery the order ?', [
         {text: 'Cancel', style: 'cancel'},
-        {text: 'Yes', onPress: () => this.setState({delivered: true})},
+        {text: 'Yes', onPress: () => this.deliveryFunc()},
     ]);
+  }
+  deliveryFunc(){
+    const { data_user } = this.props.main
+    const { data } = this.state
+    axios({
+      url: `${API}${'order_delivered'}`,
+      method: "POST",
+      headers: { "Authorization": "Bearer " + data_user.token },
+      data: { "id": data.id }
+    }).then((res) => {
+      console.log(res)
+      if(res.data.status === "error"){
+        this.props.navigation.navigate("ErrorMessage", { error_message: res.data.message })
+      } else {
+        this.setState({delivered: true})
+      }
+    }).catch((err) => this.props.navigation.navigate("ErrorMessage", { error_message: err.message }))
   }
 }
 
@@ -240,7 +264,7 @@ const styles = StyleSheet.create({
     borderRadius: 39,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 40,
+    marginRight: 40,
     overflow: 'hidden'
     // backgroundColor: "#61B5DB"
   },

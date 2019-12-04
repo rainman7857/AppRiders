@@ -35,7 +35,7 @@ class Settings extends Component {
     }).then((res) => {
       console.log(res)
       if(res.data){
-        this.setState({...res.data, name: res.data.first_name, surname: res.data.last_name})
+        this.setState({...res.data, name: res.data.first_name, surname: res.data.last_name, vehicle: res.data.vehicle})
       }
     }).catch((err) => this.props.navigation.navigate("ErrorMessage", { error_message: err.message }))
   }
@@ -45,7 +45,7 @@ class Settings extends Component {
   render() {
     const { SETTINGS, SUPPORT, SAVE, NAME, EMAIL, PHONE_NUMBER, CALL_RESTAURANT, RESTORAUNT, STATUS, ONLINE, SURNAME } = this.props.language.lang
     const { data_user } = this.props.main
-    const { name, email, phone_number, id, listing, surname, status } = this.state
+    const { name, email, phone_number, id, listing, surname, status, vehicle } = this.state
     return (
       <View style={styles.container}>
         <Header title={SETTINGS} props={this.props} hide_search={true} onPressLeft={() => {Keyboard.dismiss(); this.props.navigation.openDrawer()}}/>
@@ -63,7 +63,7 @@ class Settings extends Component {
           <Input value={email} placeholder={EMAIL} onChangeText={(text) => this.setState({email: text})} />
           <Input value={phone_number} placeholder={PHONE_NUMBER} onChangeText={(text) => this.setState({phone_number: text.replace(/[^0-9+]/g, '')})} />
 
-          <TouchableOpacity style={styles.btn_picker} onPress={() => this.props.navigation.navigate("Vehicle", { updateVehicle: this.updateVehicle.bind(this) })}>
+          <TouchableOpacity style={styles.btn_picker} onPress={() => this.props.navigation.navigate("Vehicle", { updateVehicle: this.updateVehicle.bind(this), vehicle: vehicle })}>
             <Text style={styles.btn_picker_title}>{"Seleziona veicolo"}</Text>
             <Icon size={24} name={"chevron-right"} color={"#39C77C"} />
           </TouchableOpacity>
@@ -79,7 +79,7 @@ class Settings extends Component {
             <Image style={{width: 24, height: 24}} source={require('../../img/phone_icon.png')} />
           </TouchableOpacity>
 
-          <Text style={[styles.title_align, { color: '#FF0000', fontSize: 15, fontWeight: 'normal' }]} onPress={() => alert(SUPPORT)}>{SUPPORT}</Text>
+          {/*<Text style={[styles.title_align, { color: '#FF0000', fontSize: 15, fontWeight: 'normal' }]} onPress={() => alert(SUPPORT)}>{SUPPORT}</Text>*/}
 
           <View style={{height: 20}} />
         </Wrapper>
@@ -102,10 +102,10 @@ class Settings extends Component {
       }
     }).then((res) => {
       console.log(res)
-      if(res.data.success){
-        this.props.navigation.navigate("ErrorMessage", { error_message: res.data.success })
+      if(res.data.status === "success"){
+        this.props.navigation.navigate("ErrorMessage", { error_message: res.data.message })
       } else {
-        this.props.navigation.navigate("ErrorMessage", { error_message: res.data.error && res.data.message ? res.data.message : "Something went wrong" })
+        this.props.navigation.navigate("ErrorMessage", { error_message: res.data.status === "error" ? res.data.message : "Something went wrong" })
       }
     }).catch((err) => this.props.navigation.navigate("ErrorMessage", { error_message: err.message }))
   }

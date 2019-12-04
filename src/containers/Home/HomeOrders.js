@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { StyleSheet, View, Text, ImageBackground, Image, TouchableOpacity, Platform, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, Image, TouchableOpacity, Platform, ScrollView, Dimensions, PermissionsAndroid } from "react-native";
 import { connect } from 'react-redux'
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Icon from "react-native-vector-icons/Feather";
@@ -12,6 +12,8 @@ import axios from 'axios'
 import Carousel from 'react-native-snap-carousel';
 import MapViewDirections from 'react-native-maps-directions';
 import Geolocation from 'react-native-geolocation-service';
+import TimerMixin from 'react-timer-mixin'
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
 import { Wrapper, Header, Section, CustomSwiper } from '../../components'
 import Item from './Item'
@@ -26,27 +28,82 @@ class HomeOrders extends Component {
     this.state = {
       ordini: false,
       swiper_index: 0,
+      start: false,
       coords: {
         latitude: 0,
         longitude: 0
       }
     }
+    this.timer = TimerMixin.setInterval(() => {
+      if(this.state.start){
+        this.myGeo()
+      }
+    }, 3000)
   }
   componentDidMount() {
     this.myGeo()
   }
   myGeo(){
-    Geolocation.getCurrentPosition(
-      (position) => {
-        console.log(position);
-        this.setState({coords: position.coords})
-      },
-      (error) => {
-        // See error code charts below.
-        console.log(error.code, error.message);
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    );
+     //ANDROID
+     if (Platform.OS === 'android' && Platform.Version >= 23) {
+       //checking if we have Location permission
+       PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then((result) => {
+         if (result) {
+           console.log("Have location permission");
+           //checking if the Location enabled
+           RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({interval: 10000, fastInterval: 5000})
+             .then(data => {
+               Geolocation.getCurrentPosition(
+                 position => { this.setState({coords: position.coords}) },
+                 error => { console.log("position error", error); },
+                 {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+               );
+
+           }).catch(err => { console.log("Location not enabled", err) });
+           Geolocation.getCurrentPosition(
+             position => { this.setState({coords: position.coords}) },
+             error => { console.log("position error", error); },
+             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+           );
+         } else {
+           console.log("Have no location permission");
+           //asking for location permission
+           PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then((result) => {
+             if(result === 'denied'){
+               console.log("Location permission denied.");
+               return null;
+             } else if(result === 'granted') {
+               console.log("Location permission granted.");
+               //checking if the Location enabled
+               RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({interval: 10000, fastInterval: 5000})
+                 .then(data => {
+                   Geolocation.getCurrentPosition(
+                     position => { this.setState({coords: position.coords}) },
+                     error => { console.log("position error", error); },
+                     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+                   );
+               }).catch(err => { console.log("Location not enabled", err); });
+             } else {
+               console.log("Location permission else.");
+               return null;
+             }
+           });
+       }
+     });
+   } else if(Platform.OS === 'ios') {
+     //iOS
+     Geolocation.requestAuthorization();
+     Geolocation.getCurrentPosition(
+       position => { this.setState({coords: position.coords}) },
+       error => { console.log(error) },
+       {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000},
+     );
+   } else {
+     console.log("Sorry, location is not accessible on this device.");
+   }
+  }
+  componentWillUnmount(){
+    TimerMixin.clearInterval(this.timer);
   }
   render() {
     const { NEW_ORDERS, FIRST_AND_LAST_DELIVERY, ITEM, ITEMS, PRODUCTS, ORDER, PICK_UP } = this.props.language.lang
@@ -67,20 +124,20 @@ class HomeOrders extends Component {
            provider={PROVIDER_GOOGLE}
            style={{flex: 1}}
            region={{
-             latitude: pickup_loc ? Number(pickup_loc.lat) : coords.latitude,
-             longitude: pickup_loc ? Number(pickup_loc.lng) : coords.longitude,
+             latitude: coords.latitude,
+             longitude: coords.longitude,
              latitudeDelta: 0.015,
              longitudeDelta: 0.015,
            }}
          >
            <Marker coordinate={{latitude: coords.latitude, longitude: coords.longitude}}>
-            <Image style={{width: 16, height: 16}} source={require('../../img/iconarider.png')} resizeMode={"contain"} />
+            <Image style={{width: 50, height: 50}} source={require('../../img/iconarider.png')} resizeMode={"contain"} />
            </Marker>
            <Marker coordinate={{latitude: pickup_loc ? Number(pickup_loc.lat) : 0, longitude: pickup_loc ? Number(pickup_loc.lng) : 0}}>
-            <Image style={{width: 16, height: 16}} source={require('../../img/iconarestaurant.png')} resizeMode={"contain"} />
+            <Image style={{width: 50, height: 50}} source={require('../../img/iconarestaurant.png')} resizeMode={"contain"} />
            </Marker>
            <Marker coordinate={{latitude: dropoff_loc ? Number(dropoff_loc.lat) : 0, longitude: dropoff_loc ? Number(dropoff_loc.lng) : 0}}>
-            <Image style={{width: 16, height: 16}} source={require('../../img/iconaclient.png')} resizeMode={"contain"} />
+            <Image style={{width: 50, height: 50}} source={require('../../img/iconaclient.png')} resizeMode={"contain"} />
            </Marker>
            <MapViewDirections
               origin={{latitude: coords.latitude, longitude: coords.longitude}}
@@ -111,7 +168,7 @@ class HomeOrders extends Component {
              <Text style={styles.ordini_title}>{_.size(orders)}</Text>
            </TouchableOpacity>
          </View>
-         <View style={styles.absolute}>
+         <View style={[styles.absolute, { height: ordini ? height - top_space - 70 : 300 }]}>
            {ordini ?
              <View style={styles.content}>
                <Wrapper scroll={true}>
@@ -150,7 +207,7 @@ class HomeOrders extends Component {
              </View>
              :
              <View style={styles.block}>
-               <TouchableOpacity style={styles.btn_avvia} onPress={() => {}}>
+               <TouchableOpacity style={styles.btn_avvia} onPress={() => this.setState({start: true})}>
                  <Text style={styles.btn_avvia_title}>{"Start"}</Text>
                </TouchableOpacity>
                <Carousel useScrollView={true}
@@ -198,8 +255,8 @@ class HomeOrders extends Component {
       data: { id: id }
     }).then((res) => {
       console.log(res)
-      if(res.data.error){
-        this.props.navigation.navigate("ErrorMessage", { error_message: res.data.error })
+      if(res.data.status === "error"){
+        this.props.navigation.navigate("ErrorMessage", { error_message: res.data.message })
       } else {
         this.setState({ordini: false})
         this.props.refreshData()
@@ -219,7 +276,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 99,
     width: '100%',
-    height: 300,
     bottom: 0,
   },
   bg: {

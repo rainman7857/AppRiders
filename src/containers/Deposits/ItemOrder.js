@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#000',
-    fontSize: 15,
+    fontSize: 14,
     fontFamily: 'Helvetica',
     fontWeight: 'bold'
   },

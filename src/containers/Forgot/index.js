@@ -35,7 +35,7 @@ class Forgot extends Component {
     const { SUPPORT, EMAIL, RESET_PASSWORD, RESET } = this.props.language.lang
     const { email, hide } = this.state;
     return (
-      <Wrapper footer={hide ? null : <Text style={[styles.text, styles.text_red]}>{SUPPORT}</Text>}>
+      <Wrapper>
         <Header style={{backgroundColor: '#fff'}} props={this.props} hide_search={true} icon={"arrow-left"} color={"#000"} onPressLeft={() => this.props.navigation.goBack()} />
         <Text style={[styles.splash_title, styles.title]}>{RESET_PASSWORD}</Text>
         <View style={styles.content}>

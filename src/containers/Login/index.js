@@ -40,7 +40,7 @@ class Login extends Component {
     const { SIGN_IN, EMAIL, PASSWORD, APP_NAME, SUPPORT, FORGOT_PASSWORD } = this.props.language.lang
     const { email, password, isShowPassword, hide } = this.state;
     return (
-      <Wrapper footer={hide ? null : <Text style={[styles.text, styles.text_red]}>{SUPPORT}</Text>}>
+      <Wrapper>
         <Header style={{backgroundColor: '#fff'}} props={this.props} hide_left_btn={true} hide_search={true} />
         <Text style={[styles.splash_title, styles.title]}>{APP_NAME}</Text>
         <View style={styles.content}>
